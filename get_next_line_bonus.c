@@ -6,7 +6,7 @@
 /*   By: aminel-h <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/28 19:53:04 by aminel-h          #+#    #+#             */
-/*   Updated: 2025/11/01 14:20:43 by aminel-h         ###   ########.fr       */
+/*   Updated: 2025/11/01 15:52:50 by aminel-h         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,10 @@ char	*read_line(int fd, char *saved)
 	while (!check_n(saved))
 	{
 		read_bytes = read(fd, buffer, BUFFER_SIZE);
-		if (read_bytes <= 0)
+		if (read_bytes == 0)
 			break ;
+		if (read_bytes == -1)
+			return (free(buffer), free(saved), NULL);
 		buffer[read_bytes] = '\0';
 		tmp = ft_strjoin(saved, buffer);
 		if (!tmp)
